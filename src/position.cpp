@@ -1130,7 +1130,9 @@ bool Position::see_ge(Move m, Value threshold) const {
 
 bool Position::is_draw(int ply) const {
 
-  if (st->rule50 > 99 && (!checkers() || MoveList<LEGAL>(*this).size()))
+// By changing 99 to 49 below, create custom 25-move rule for shorter shuffling sequences.
+// Keep shuffle extensions in search.cpp, but hopefully this way they won't take as much time.
+  if (st->rule50 > 49 && (!checkers() || MoveList<LEGAL>(*this).size()))
       return true;
 
   // Return a draw score if a position repeats once earlier but strictly
